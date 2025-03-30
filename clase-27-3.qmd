@@ -1,0 +1,62 @@
+# Clase 27-3
+
+## Importar datos
+
+```{r}
+library(readr)
+poblacion <- read_csv("archivos/datos_heterocedasticidad.csv")
+head(poblacion)
+```
+
+Los datos corresponden a una población simulada:
+
+$$
+\text{GastoEduc}_i = 2000 + 0.1 \times \text{Ingreso}_i + u_i
+$$
+
+Donde:
+
+$$
+u_i \sim N(\mu = 0, \sigma = \text{Ingreso} \times 0.05)
+$$
+
+## Diagrama de dispersión
+
+```{r}
+set.seed(123)
+datos = poblacion[sample(nrow(poblacion), size=100, replace = FALSE), ]
+plot(x = datos$Ingreso,
+     y = datos$Gasto_Educacion,
+     xlab = "Ingreso", ylab= "Gasto en Educación",
+     main = "Diagrama de Dispersión: Gasto en Educación vs Ingreso")
+```
+
+## Modelo *naive*
+
+```{r}
+attach(datos)
+modelo_naive = lm(Gasto_Educacion ~ Ingreso)
+summary(modelo_naive)
+```
+
+## Regresión
+
+```{r}
+plot(x = datos$Ingreso,
+     y = datos$Gasto_Educacion,
+     xlab = "Ingreso",
+     ylab = "Gasto en Educación",
+     main = "Diagrama de Dispersión: Gasto en Educación")
+abline(modelo_naive, col = "red")
+```
+
+## Diagnóstico con los residuos
+
+```{r}
+plot(modelo_naive, 1,
+     main = "Residuos vs Predichos")
+```
+
+```{r}
+plot(modelo_naive, 2)
+```

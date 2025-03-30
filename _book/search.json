@@ -1,0 +1,62 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Clases de Econometría",
+    "section": "",
+    "text": "1 Econometría\nProyecto personal donde voy a subir apuntes de las clases de econometría del cursado 2025, de la Universidad Nacional del Comahue.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Econometría</span>"
+    ]
+  },
+  {
+    "objectID": "clase-27-3.html",
+    "href": "clase-27-3.html",
+    "title": "2  Clase 27-3",
+    "section": "",
+    "text": "2.1 Importar datos\nlibrary(readr)\npoblacion &lt;- read_csv(\"archivos/datos_heterocedasticidad.csv\")\n\nRows: 9959 Columns: 2\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (2): Ingreso, Gasto_Educacion\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nhead(poblacion)\n\n# A tibble: 6 × 2\n  Ingreso Gasto_Educacion\n    &lt;dbl&gt;           &lt;dbl&gt;\n1  35882.           4702.\n2  80947.          14659.\n3  46808.           3996.\n4  89472.          17573.\n5  94642.          15800.\n6  14100.           3646.\nLos datos corresponden a una población simulada:\n\\[\n\\text{GastoEduc}_i = 2000 + 0.1 \\times \\text{Ingreso}_i + u_i\n\\]\nDonde:\n\\[\nu_i \\sim N(\\mu = 0, \\sigma = \\text{Ingreso} \\times 0.05)\n\\]",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Clase 27-3</span>"
+    ]
+  },
+  {
+    "objectID": "clase-27-3.html#diagrama-de-dispersión",
+    "href": "clase-27-3.html#diagrama-de-dispersión",
+    "title": "2  Clase 27-3",
+    "section": "2.2 Diagrama de dispersión",
+    "text": "2.2 Diagrama de dispersión\n\nset.seed(123)\ndatos = poblacion[sample(nrow(poblacion), size=100, replace = FALSE), ]\nplot(x = datos$Ingreso,\n     y = datos$Gasto_Educacion,\n     xlab = \"Ingreso\", ylab= \"Gasto en Educación\",\n     main = \"Diagrama de Dispersión: Gasto en Educación vs Ingreso\")",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Clase 27-3</span>"
+    ]
+  },
+  {
+    "objectID": "clase-27-3.html#modelo-naive",
+    "href": "clase-27-3.html#modelo-naive",
+    "title": "2  Clase 27-3",
+    "section": "2.3 Modelo naive",
+    "text": "2.3 Modelo naive\n\nattach(datos)\nmodelo_naive = lm(Gasto_Educacion ~ Ingreso)\nsummary(modelo_naive)\n\n\nCall:\nlm(formula = Gasto_Educacion ~ Ingreso)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-8116.7 -1450.2   145.9  1553.0 10151.0 \n\nCoefficients:\n             Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 1.631e+03  7.150e+02   2.281   0.0247 *  \nIngreso     1.093e-01  1.173e-02   9.319 3.64e-15 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 3105 on 98 degrees of freedom\nMultiple R-squared:  0.4698,    Adjusted R-squared:  0.4644 \nF-statistic: 86.85 on 1 and 98 DF,  p-value: 3.639e-15",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Clase 27-3</span>"
+    ]
+  },
+  {
+    "objectID": "clase-27-3.html#regresión",
+    "href": "clase-27-3.html#regresión",
+    "title": "2  Clase 27-3",
+    "section": "2.4 Regresión",
+    "text": "2.4 Regresión\n\nplot(x = datos$Ingreso,\n     y = datos$Gasto_Educacion,\n     xlab = \"Ingreso\",\n     ylab = \"Gasto en Educación\",\n     main = \"Diagrama de Dispersión: Gasto en Educación\")\nabline(modelo_naive, col = \"red\")",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Clase 27-3</span>"
+    ]
+  },
+  {
+    "objectID": "clase-27-3.html#diagnóstico-con-los-residuos",
+    "href": "clase-27-3.html#diagnóstico-con-los-residuos",
+    "title": "2  Clase 27-3",
+    "section": "2.5 Diagnóstico con los residuos",
+    "text": "2.5 Diagnóstico con los residuos\n\nplot(modelo_naive, 1,\n     main = \"Residuos vs Predichos\")\n\n\n\n\n\n\n\n\n\nplot(modelo_naive, 2)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Clase 27-3</span>"
+    ]
+  }
+]

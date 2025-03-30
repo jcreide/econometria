@@ -1,0 +1,18 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Clases de Econometría"
+  author: "Juan Creide"
+  chapters:
+    - index.qmd
+    - clase-27-3.qmd
+
+
+format:
+  html:
+    lang: es
+    theme:
+      light: flatly
+      dark: darkly

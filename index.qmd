@@ -1,0 +1,3 @@
+# Econometría
+
+Proyecto personal donde voy a subir apuntes de las clases de econometría del cursado 2025, de la Universidad Nacional del Comahue.
