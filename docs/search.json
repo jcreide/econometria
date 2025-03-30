@@ -58,5 +58,45 @@
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Clase 27-3</span>"
     ]
+  },
+  {
+    "objectID": "clase-20-3.html",
+    "href": "clase-20-3.html",
+    "title": "2  Clase 20-3",
+    "section": "",
+    "text": "2.1 Importar datos de tabla.csv\nlibrary(readr)\ndatos &lt;- read_delim(\"archivos/tabla.csv\", delim = \";\", \n    escape_double = FALSE, trim_ws = TRUE)\n\nRows: 16 Columns: 8\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \";\"\ndbl (8): obs, Y, DPBI, PBI, NoDes, Enlistadas, Mas14, TIME\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nhead(datos)\n\n# A tibble: 6 × 8\n    obs     Y  DPBI    PBI NoDes Enlistadas  Mas14  TIME\n  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;\n1  1947 60323   830 234289  2356       1590 107608     1\n2  1948 61122   885 259426  2325       1456 108632     2\n3  1949 60171   882 258054  3682       1616 109773     3\n4  1950 61187   895 284599  3351       1650 110929     4\n5  1951 63221   962 328975  2099       3099 112075     5\n6  1952 63639   981 346999  1932       3594 113270     6",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Clase 20-3</span>"
+    ]
+  },
+  {
+    "objectID": "clase-20-3.html#modelo-lineal",
+    "href": "clase-20-3.html#modelo-lineal",
+    "title": "2  Clase 20-3",
+    "section": "2.2 Modelo lineal",
+    "text": "2.2 Modelo lineal\n\nattach(datos)\nmodelo = lm(Y ~ DPBI + PBI + NoDes + Enlistadas + Mas14 + TIME)\nsummary(datos)\n\n      obs             Y              DPBI             PBI        \n Min.   :1947   Min.   :60171   Min.   : 830.0   Min.   :234289  \n 1st Qu.:1951   1st Qu.:62712   1st Qu.: 945.2   1st Qu.:317881  \n Median :1954   Median :65504   Median :1006.0   Median :381427  \n Mean   :1954   Mean   :65317   Mean   :1016.8   Mean   :387698  \n 3rd Qu.:1958   3rd Qu.:68290   3rd Qu.:1112.5   3rd Qu.:454086  \n Max.   :1962   Max.   :70551   Max.   :1169.0   Max.   :554894  \n     NoDes        Enlistadas       Mas14             TIME      \n Min.   :1870   Min.   :1456   Min.   :107608   Min.   : 1.00  \n 1st Qu.:2348   1st Qu.:2298   1st Qu.:111788   1st Qu.: 4.75  \n Median :3144   Median :2718   Median :116804   Median : 8.50  \n Mean   :3193   Mean   :2607   Mean   :117424   Mean   : 8.50  \n 3rd Qu.:3842   3rd Qu.:3061   3rd Qu.:122304   3rd Qu.:12.25  \n Max.   :4806   Max.   :3594   Max.   :130081   Max.   :16.00",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Clase 20-3</span>"
+    ]
+  },
+  {
+    "objectID": "clase-20-3.html#análisis-de-correlación",
+    "href": "clase-20-3.html#análisis-de-correlación",
+    "title": "2  Clase 20-3",
+    "section": "2.3 Análisis de correlación",
+    "text": "2.3 Análisis de correlación\nPrimero eliminamos las variables obs e Y:\n\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\ndatos_limpios &lt;- datos %&gt;% select(!c(\"obs\", \"Y\"))\ndatos_limpios\n\n# A tibble: 16 × 6\n    DPBI    PBI NoDes Enlistadas  Mas14  TIME\n   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;\n 1   830 234289  2356       1590 107608     1\n 2   885 259426  2325       1456 108632     2\n 3   882 258054  3682       1616 109773     3\n 4   895 284599  3351       1650 110929     4\n 5   962 328975  2099       3099 112075     5\n 6   981 346999  1932       3594 113270     6\n 7   990 365385  1870       3547 115094     7\n 8  1000 363112  3578       3350 116219     8\n 9  1012 397469  2904       3048 117388     9\n10  1046 419180  2822       2857 118734    10\n11  1084 442769  2936       2798 120445    11\n12  1108 444546  4681       2637 121950    12\n13  1126 482704  3813       2552 123366    13\n14  1142 502601  3931       2514 125368    14\n15  1157 518173  4806       2572 127852    15\n16  1169 554894  4007       2827 130081    16\n\n\nMatriz de correlación:\n\nmatriz_correlacion = cor(datos_limpios)\n\n#redondeamos la matriz a dos dígitos para mejor legibilidad:\nmatriz_correlacion_legible = round(matriz_correlacion, digits=2) \nmatriz_correlacion_legible\n\n           DPBI  PBI NoDes Enlistadas Mas14 TIME\nDPBI       1.00 0.99  0.62       0.46  0.98 0.99\nPBI        0.99 1.00  0.60       0.45  0.99 1.00\nNoDes      0.62 0.60  1.00      -0.18  0.69 0.67\nEnlistadas 0.46 0.45 -0.18       1.00  0.36 0.42\nMas14      0.98 0.99  0.69       0.36  1.00 0.99\nTIME       0.99 1.00  0.67       0.42  0.99 1.00\n\n\nCorrplot:\n\nlibrary(corrplot)\n\ncorrplot 0.95 loaded\n\ncorrplot(matriz_correlacion, method=\"ellipse\")",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Clase 20-3</span>"
+    ]
+  },
+  {
+    "objectID": "clase-20-3.html#cálculo-de-valor-k",
+    "href": "clase-20-3.html#cálculo-de-valor-k",
+    "title": "2  Clase 20-3",
+    "section": "3.1 Cálculo de valor k",
+    "text": "3.1 Cálculo de valor k\n\nk = max(eigen(matriz_correlacion)$values)/min(eigen(matriz_correlacion)$values)\nk\n\n[1] 12220.01",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Clase 20-3</span>"
+    ]
   }
 ]

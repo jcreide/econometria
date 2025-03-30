@@ -7,11 +7,13 @@ book:
   author: "Juan Creide"
   chapters:
     - index.qmd
+    - clase-20-3.qmd
     - clase-27-3.qmd
 
 
 format:
   html:
+    toc: true
     lang: es
     theme:
       light: flatly

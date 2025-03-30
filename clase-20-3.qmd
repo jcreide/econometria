@@ -1,0 +1,69 @@
+# Clase 20-3
+
+## Importar datos de `tabla.csv`
+
+```{r}
+library(readr)
+datos <- read_delim("archivos/tabla.csv", delim = ";", 
+    escape_double = FALSE, trim_ws = TRUE)
+head(datos)
+```
+
+## Modelo lineal
+
+```{r}
+attach(datos)
+modelo = lm(Y ~ DPBI + PBI + NoDes + Enlistadas + Mas14 + TIME)
+summary(datos)
+```
+
+## Análisis de correlación
+
+Primero eliminamos las variables `obs` e `Y`:
+
+```{r}
+library(dplyr)
+datos_limpios <- datos %>% select(!c("obs", "Y"))
+datos_limpios
+```
+
+Matriz de correlación:
+
+```{r}
+matriz_correlacion = cor(datos_limpios)
+
+#redondeamos la matriz a dos dígitos para mejor legibilidad:
+matriz_correlacion_legible = round(matriz_correlacion, digits=2) 
+matriz_correlacion_legible
+```
+
+Corrplot:
+
+```{r}
+library(corrplot)
+corrplot(matriz_correlacion, method="ellipse")
+```
+
+# Cálculo autovalores
+
+```{r}
+round(eigen(matriz_correlacion)$values, digits=3)
+```
+
+## Cálculo de valor k
+
+```{r}
+k = max(eigen(matriz_correlacion)$values)/min(eigen(matriz_correlacion)$values)
+k
+```
+
+# Modelo auxiliar
+
+Modelo para evaluar multicolinealidad:
+
+```{r}
+modelo_DPBI = lm(DPBI ~ Y + PBI + NoDes + Enlistadas + Mas14 + TIME, data=datos)
+r = summary(modelo_DPBI)$r.squared
+FIV = 1/(1-r)
+FIV
+```
