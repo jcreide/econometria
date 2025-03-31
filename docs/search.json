@@ -138,5 +138,75 @@
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Clase 20-3</span>"
     ]
+  },
+  {
+    "objectID": "clase 31-3.html",
+    "href": "clase 31-3.html",
+    "title": "4  Clase 31-3: Heterocedasticidad",
+    "section": "",
+    "text": "4.1 Detección de heterocedasticidad",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Clase 31-3: Heterocedasticidad</span>"
+    ]
+  },
+  {
+    "objectID": "clase 31-3.html#detección-de-heterocedasticidad",
+    "href": "clase 31-3.html#detección-de-heterocedasticidad",
+    "title": "4  Clase 31-3: Heterocedasticidad",
+    "section": "",
+    "text": "4.1.1 Métodos informales\n\nVer antecedentes (estudios previos)\nMétodo gráfico: graficar residuos en función de las distintas variables predictoras \\(X_i\\)\n\n\n\n4.1.2 Métodos formales\n\nPrueba de Park\nPrueba de Glejser\nPrueba de Goldfeld-Quandt\nPrueba de Breusch-Pagan-Godfrey\nPrueba general de White",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Clase 31-3: Heterocedasticidad</span>"
+    ]
+  },
+  {
+    "objectID": "clase 31-3.html#prueba-de-park",
+    "href": "clase 31-3.html#prueba-de-park",
+    "title": "4  Clase 31-3: Heterocedasticidad",
+    "section": "4.2 Prueba de Park",
+    "text": "4.2 Prueba de Park\nSupone que \\(\\sigma_i^2\\) es algún tipo de función de la variable explicativa \\(X_i\\):\n\\[\n\\sigma_i^2 = \\sigma^2 x_i^\\beta e^{v_i}\n\\]\n\\[\n\\ln \\sigma^2_i = \\ln \\sigma^2 + \\beta \\ln X_i + v_i\n\\]\ndonde \\(v_i\\) es el término de perturbación.\nPero como no conocemos \\(\\sigma^2\\), utilizamos la siguiente regresión:\n\\[\n\\ln \\hat{u}_i^2 = \\ln \\sigma^2 + \\beta \\ln X_i + v_i\n\\tag{4.1}\\]\n\n\n\n\n\n\nHipótesis de las pruebas de heterocedasticidad\n\n\n\n\n\n\n\n\n\n\n\n\nNota\n\n\n\nTodas las pruebas tienen la siguiente estructura:\n\n\\(H_0:\\) Hay heterocedasticidad.\n\\(H_1:\\) No hay heterocedasticidad.\n\nEn términos del valor p:\nSi \\(p &gt; \\alpha \\implies\\) no rechazo \\(H_0\\)\n\n\n\n\n\n\n\n\nLimitación\n\n\n\nExiste la posibilidad de que \\(v_i\\) no satisfaga los supuestos de mínimos cuadrados ordinarios y puede ser en sí mismo heterocedástico. Por lo tanto, la prueba de Park se suele usar como método exploratorio.\n\n\n\n4.2.1 Prueba de Park en R\ndatos(residuos2 &lt;- datos$residuos^2)\nhead(datos)\nModelo auxiliar de la forma Ecuación 4.1\nattach(datos)\nmodelo_auxiliar_park &lt;- lm(log(residuos2) ~ log(ingresos))\nsummary(modelo_auxiliar_park)\n\\[\np_\\text{valor} (\\beta) \\approx 0 \\implies RH_0\n\\]\nPor lo tanto, la prueba muestra la presencia de heterocedasticidad.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Clase 31-3: Heterocedasticidad</span>"
+    ]
+  },
+  {
+    "objectID": "clase 31-3.html#prueba-de-glejser",
+    "href": "clase 31-3.html#prueba-de-glejser",
+    "title": "4  Clase 31-3: Heterocedasticidad",
+    "section": "4.3 Prueba de Glejser",
+    "text": "4.3 Prueba de Glejser\nPrueba similar a la de Park, con la diferencia que en vez de trabajar con los residuos al cuadrado, trabaja con éstos en valores absolutos. Es una prueba útil en muestras grandes, no en muestras pequeñas (\\(&lt;30\\)).\n\\[\n|\\hat{u}_i| = \\beta_1 + \\beta_2 X_i + v_i\n\\tag{4.2}\\]\n\\[\n|\\hat{u}_i| = \\beta_1 + \\beta_2 \\sqrt{X_i} + v_i\n\\tag{4.3}\\]\n\\[\n|\\hat{u}_i| = \\beta_1 + \\beta_2 \\frac{1}{\\sqrt{X_i}} + v_i\n\\tag{4.4}\\]\n\\[\n|\\hat{u}_i| = \\sqrt{\\beta_1 + \\beta_2 X_i} + v_i\n\\tag{4.5}\\]\n\\[\n|\\hat{u}_i| = \\sqrt{\\beta_1 + \\beta_2 X_i^2} + v_i\n\\tag{4.6}\\]\n\n4.3.1 Prueba de Glejser en R\nAgregamos una columna con los valores absolutos de los residuos abs_residuos:\ndatos$abs_residuos &lt;- abs(datos$residuos)\nhead(datos)\nModelo auxiliar de la forma Ecuación 4.2 :\nattach(datos)\nmodelo_auxiliar_glejser1 &lt;- lm(abs_residuos ~ Ingreso)\nsummary(modelo_auxiliar_glejser1)\n\\[\np_\\text{valor} (\\beta) \\approx 0 \\implies RH_0\n\\]\nAl igual que con la muestra de Park, la prueba arroja existencia de heterocedasticidad.\nModelo auxiliar de la forma Ecuación 4.3 :\nattach(datos)\nmodelo_auxiliar_glejser2 &lt;- lm(abs_residuos ~ sqrt(Ingresos))\nsummary(modelo_auxiliar_glejser2)\nQue también arroja un P valor cercano a cero, por lo que también rechazamos la hipótesis nula y concluimos que hay heterocedasticidad.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Clase 31-3: Heterocedasticidad</span>"
+    ]
+  },
+  {
+    "objectID": "clase 31-3.html#prueba-de-spearman",
+    "href": "clase 31-3.html#prueba-de-spearman",
+    "title": "4  Clase 31-3: Heterocedasticidad",
+    "section": "4.4 Prueba de Spearman",
+    "text": "4.4 Prueba de Spearman\nEl desarrollo es medio engorroso así que sólo escribo el comando en R:\nattach(datos)\ncor(abs_residuos, Ingresos, method= \"spearman\")\nTambién se puede usar la función cor.test con la misma sintaxis.\n\n\n\n\n\n\nNota\n\n\n\nNo requiere el supuesto de normalidad para los residuos.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Clase 31-3: Heterocedasticidad</span>"
+    ]
+  },
+  {
+    "objectID": "clase 31-3.html#prueba-de-goldfeld-quandt",
+    "href": "clase 31-3.html#prueba-de-goldfeld-quandt",
+    "title": "4  Clase 31-3: Heterocedasticidad",
+    "section": "4.5 Prueba de Goldfeld-Quandt",
+    "text": "4.5 Prueba de Goldfeld-Quandt\nSupone que la varianza \\(\\sigma^2\\) está relacionada positivamente con una variable explicativa del modelo:\n\\[\n\\sigma_i^2 = \\sigma^2 X_i^2\n\\]\nProcedimiento:\n\nOrdenar las observaciones de menor a mayor en función de \\(X\\).\nOmitir las \\(c\\) observaciones centrales, las observaciones restantes se dividen en dos grupos, cada uno con \\((n-c)/2\\) observaciones.\nAjustar con MCO separados los subconjuntos definitos y obtener las respectivas sumas de cuadrados residuales \\(\\hat{u}^2\\)\n\n\n\n\n\n\n\nValor de c (revisar)\n\n\n\n\nEl valor \\(c\\) óptimo se encuentra entre el 10 y el 20%\nSe puede hacer una simulación tipo Montecarlo para encontrar dicho valor óptimo.\n\n\n\n\n4.5.1 Prueba de Goldfeld-Quandt en R\nPaso 1: ordenar las observaciones de menor a mayor en función de \\(X\\):\ndatos_ordenados &lt;- datos[order(datos$Ingreso)]\nhead(datos_ordenados)\nPaso 2: omitir \\(c\\) observaciones centrales\nn = nrow(datos_ordenados) #n=100\nc &lt;- 16\nn1 = n/2-(c/2)\nn-(n1+c)\n\ndatos1 &lt;- datos_ordenados[1:n1, ]\ndatos2 &lt;- datos_ordenados[(n1+c+1):n, ]\nPaso 3: ajustar con MCO separados los subconjuntos definidos y obtener los cuadrados residuales\nattach(datos1)\nmodelo1 = lm(Gasto_Educacion ~ Ingreso)\n\nattach(datos2)\nmodelo2 = lm(Gasto_Educacion ~ Ingreso)\n\nanova(modelo1)\nanova(modelo2)\nscr1 = sum(modelo1$residuals^2)\nscr1\nscr2 = sum(modelo2$residuals^2)\nscr2\nlambda = (scr2/(n1-2))/(scr1/(n1-2))\nlambda\np_valor = 1 - pf)(lambda, (n1-2), (n1-2))\np_valor",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Clase 31-3: Heterocedasticidad</span>"
+    ]
+  },
+  {
+    "objectID": "clase 31-3.html#prueba-de-breusch-pagan-goldfrey",
+    "href": "clase 31-3.html#prueba-de-breusch-pagan-goldfrey",
+    "title": "4  Clase 31-3: Heterocedasticidad",
+    "section": "4.6 Prueba de Breusch-Pagan-Goldfrey",
+    "text": "4.6 Prueba de Breusch-Pagan-Goldfrey\nPaso 1: estimar el modelo de regresión lineal simple y obtener los residuos.\nPaso 2: obtener la varianza máximo-verosímil:\n\\[\n\\overset{\\sim}{\\sigma}^2 = \\frac{\\sum \\hat{u}^2_i}{n}\n\\]\n\n\n\n\n\n\nNota\n\n\n\nComparar con estimador de MCO:\n\\[\n\\sigma^2 = \\frac{\\sum \\hat{u}^2_i}{n-k}\n\\]\nLos grados de libertad lo vuelven un estimador insesgado, a diferencia de \\(\\overset{\\sim}{\\sigma}\\)\n\n\nPaso 3: construir las variables \\(p_i\\):\n\\[\np_i = \\frac{\\hat{u}^2_i}{\\overset{\\sim}{\\sigma}^2}\n\\]\nPaso 4: hacer la regresión:\n\\[\np_i = \\alpha_1 + \\alpha_2 Z_{2i} + \\dots + \\alpha_m Z_{mi} + v_i\n\\]\n\n\n\n\n\n\nNota\n\n\n\nLo más probable es que las \\(Z\\) sean las propias \\(X\\) del modelo.\n\n\nPaso 5: obtener la suma de cuadrados explicada y definir:\n\\[\n\\Theta = \\frac{1}{2} SCE_{xp}\n\\]",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Clase 31-3: Heterocedasticidad</span>"
+    ]
   }
 ]
