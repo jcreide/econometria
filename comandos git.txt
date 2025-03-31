@@ -1,0 +1,7 @@
+Para forzar que se actualice
+
+git add .
+git commit -m "Actualización de index.html"
+git push origin main  # o la rama que uses
+
+

@@ -1,3 +1,3 @@
-# Econometría
+# Página principal
 
-Proyecto personal donde voy a subir apuntes de las clases de econometría del cursado 2025, de la Universidad Nacional del Comahue.
+La idea de la página es ir subiendo apuntes de las clases de econometría.
