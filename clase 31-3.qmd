@@ -172,7 +172,7 @@ Procedimiento:
 ::: callout-note
 ## Valor de c (revisar)
 
--   El valor $c$ óptimo se encuentra entre el 10 y el 20%
+-   El valor $c$ óptimo se encuentra entre el 10 y el 20% del tamaño de la muestra.
 
 -   Se puede hacer una simulación tipo Montecarlo para encontrar dicho valor óptimo.
 :::
