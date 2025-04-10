@@ -64,6 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./clase 3-4.html" rel="next">
 <link href="./clase-27-3.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -195,6 +196,18 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./clase 31-3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Clase 31-3: Heterocedasticidad</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clase 3-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Clase 4-4: Continuación tests heterocedasticidad</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clase 7-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Clase 7-4: Soluciones a la heterocedasticidad</span></span></a>
   </div>
 </li>
     </ul>
@@ -511,6 +524,25 @@ Nota
 <p><span class="math display">\[
 \Theta = \frac{1}{2} SCE_{xp}
 \]</span></p>
+<p>Si los <span class="math inline">\(u_i\)</span> están normalmente distribuidos, hay homocedasticidad y el tamaño <span class="math inline">\(n\)</span> de la muestra aumenta indefinidamente, entonces</p>
+<p><span class="math display">\[
+\Theta \overset{n \rightarrow \infty }{\sim} \chi^2_{m-1}
+\]</span></p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Limitación</strong></p>
+<p>La prueba es sensible al supuesto de normalidad, por lo que su uso no se recomienda para muestras pequeñas.</p>
+</div>
+</div>
+<p>En R se hace la prueba con el comando <code>bptest</code>. Hay que llamar al paquete <code>lmtest</code></p>
 
 
 </section>
@@ -1084,6 +1116,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./clase 3-4.html" class="pagination-link" aria-label="Clase 4-4: Continuación tests heterocedasticidad">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Clase 4-4: Continuación tests heterocedasticidad</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

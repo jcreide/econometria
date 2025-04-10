@@ -198,6 +198,18 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Clase 31-3: Heterocedasticidad</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clase 3-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Clase 4-4: Continuación tests heterocedasticidad</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clase 7-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Clase 7-4: Soluciones a la heterocedasticidad</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -241,8 +253,6 @@ window.Quarto = {
 <section id="importar-datos" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="importar-datos"><span class="header-section-number">3.1</span> Importar datos</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>poblacion <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"archivos/datos_heterocedasticidad.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 9959 Columns: 2
 ── Column specification ────────────────────────────────────────────────────────
@@ -252,7 +262,6 @@ dbl (2): Ingreso, Gasto_Educacion
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(poblacion)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
   Ingreso Gasto_Educacion
@@ -277,12 +286,12 @@ u_i \sim N(\mu = 0, \sigma = \text{Ingreso} \times 0.05)
 <section id="diagrama-de-dispersión" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="diagrama-de-dispersión"><span class="header-section-number">3.2</span> Diagrama de dispersión</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">=</span> poblacion[<span class="fu">sample</span>(<span class="fu">nrow</span>(poblacion), <span class="at">size=</span><span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), ]</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> datos<span class="sc">$</span>Ingreso,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> datos<span class="sc">$</span>Gasto_Educacion,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Ingreso"</span>, <span class="at">ylab=</span> <span class="st">"Gasto en Educación"</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Diagrama de Dispersión: Gasto en Educación vs Ingreso"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">=</span> poblacion[<span class="fu">sample</span>(<span class="fu">nrow</span>(poblacion), <span class="at">size=</span><span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), ]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> datos<span class="sc">$</span>Ingreso,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> datos<span class="sc">$</span>Gasto_Educacion,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Ingreso"</span>, <span class="at">ylab=</span> <span class="st">"Gasto en Educación"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Diagrama de Dispersión: Gasto en Educación vs Ingreso"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -295,9 +304,9 @@ u_i \sim N(\mu = 0, \sigma = \text{Ingreso} \times 0.05)
 <section id="modelo-naive" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="modelo-naive"><span class="header-section-number">3.3</span> Modelo <em>naive</em></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(datos)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>modelo_naive <span class="ot">=</span> <span class="fu">lm</span>(Gasto_Educacion <span class="sc">~</span> Ingreso)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo_naive)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(datos)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>modelo_naive <span class="ot">=</span> <span class="fu">lm</span>(Gasto_Educacion <span class="sc">~</span> Ingreso)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo_naive)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -323,12 +332,12 @@ F-statistic: 86.85 on 1 and 98 DF,  p-value: 3.639e-15</code></pre>
 <section id="regresión" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="regresión"><span class="header-section-number">3.4</span> Regresión</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> datos<span class="sc">$</span>Ingreso,</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> datos<span class="sc">$</span>Gasto_Educacion,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Ingreso"</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Gasto en Educación"</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Diagrama de Dispersión: Gasto en Educación"</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(modelo_naive, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> datos<span class="sc">$</span>Ingreso,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> datos<span class="sc">$</span>Gasto_Educacion,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Ingreso"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Gasto en Educación"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Diagrama de Dispersión: Gasto en Educación"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(modelo_naive, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -341,8 +350,8 @@ F-statistic: 86.85 on 1 and 98 DF,  p-value: 3.639e-15</code></pre>
 <section id="diagnóstico-con-los-residuos" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="diagnóstico-con-los-residuos"><span class="header-section-number">3.5</span> Diagnóstico con los residuos</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo_naive, <span class="dv">1</span>,</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Residuos vs Predichos"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo_naive, <span class="dv">1</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Residuos vs Predichos"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -352,7 +361,7 @@ F-statistic: 86.85 on 1 and 98 DF,  p-value: 3.639e-15</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo_naive, <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo_naive, <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

@@ -1,0 +1,171 @@
+# Clase 7-4: Soluciones a la heterocedasticidad
+
+```{r}
+library(readr)
+datos <- read_csv("archivos/datos_heterocedasticidad.csv")
+```
+
+Tenemos el siguiente modelo:
+
+$$
+G_e = \beta_1 + \beta_2 I + u
+$$
+
+donde
+
+-   $G_e$: gasto en educación
+
+-   $I$: ingreso
+
+## Primera solución: Mínimos cuadrados generalizados
+
+$$
+\sigma_i^2 = \sigma \times X_i^2
+$$
+
+```{r}
+library(nlme)
+attach(datos)
+modelo_gls1 = gls(Gasto_Educacion ~ Ingreso, weights = varPower(fixed = 2, form = ~ Ingreso))
+```
+
+::: callout-note
+`varpower()` es una función que modela la heterocedasticidad usando usna estructura de potencia $\sigma^2_i = \sigma |X|^p$. En este caso $p=2$.
+:::
+
+```{r}
+plot(modelo_gls1, which=1)
+```
+
+Seguimos teniendo heterocedasticidad, por lo que la primera alternativa no funcionó.
+
+## Segunda opción:
+
+$$
+\sigma_i^2 = \sigma \times X_i
+$$
+
+A diferencia del caso anterior, usamos un $p=1$
+
+```{r}
+modelo_gls2 = gls(Gasto_Educacion ~ Ingreso, weights = varPower(fixed = 1, form = ~ Ingreso))
+plot(modelo_gls2, which=1)
+modelo_gls2
+```
+
+```{r}
+summary(modelo_gls2)
+```
+
+Comparado con el modelo *naive*:
+
+```{r}
+modelo_naive = lm(Gasto_Educacion ~ Ingreso)
+summary(modelo_naive)
+```
+
+## Tercera solución: Usar Errores Estándar Robustos
+
+Primero hay que llamar la librería `sandwich`, que proporciona matrices de covarianza robustas en modelos estadísticos:
+
+```{r}
+library(sandwich)
+library(lmtest)
+
+sqrt(diag(vcovHC(modelo_naive, type= "HC0"))) # errores estándar robustos para el intercepto y la pendiente
+coeftest(modelo_naive, vcov= vcovHC(modelo_naive, type= "HC0")) # HC0 versión original de white (prueba para los coeficientes)
+```
+
+::: callout-tip
+Este procedimiento amplia los desvios de los residuos respecto a mínimos cuadrados ordinarios (modelo *naive*) porque pondera los errores estándar usando la matriz de varianza covarianza.
+:::
+
+### Ajuste para muestras finitas
+
+```{r}
+sqrt(diag(vcovHC(modelo_naive, type= "HC1")))
+coeftest(modelo_naive, vcov= vcovHC(modelo_naive, type= "HC1")) 
+```
+
+Multiplica la matriz de varianza-covarianza por un factor de corrección $n(n-k)$, donde:
+
+-   $n$: número de observaciones.
+
+-   $k$: número de parámetros en el modelo
+
+Es más utilizada que la anterior ($HC1$), especialmente en muestras pequeñas (muestras finitas).
+
+Otros ajustes populares:
+
+-   $HC2$: usa un ajuste basado en los valores de influencia (*leverage*) de cada observación.
+
+-   $HC3$ similar a $HC2$ pero usa un ajuste más conservador.
+
+# Práctica
+
+Importamos datos del archivo `hetero_ej.csv`:
+
+```{r}
+library(readr)
+hetero_ej = read_csv2("archivos/hetero_ej.csv")
+head(hetero_ej)
+```
+
+La variable dependiente es `ingreso`, y las independientes `intensidad_lab` y `rend_tech`
+
+### Modelo *naive*
+
+```{r}
+plot(hetero_ej)
+cor(hetero_ej[ ,-1])
+```
+
+```{r}
+attach(hetero_ej)
+modelo_naive_heterocedasticidad = lm(ingreso ~ intensidad_lab + rend_tech)
+```
+
+```{r}
+plot(modelo_naive_heterocedasticidad, 1)
+```
+
+```{r}
+library(regclass)
+VIF(modelo_naive_heterocedasticidad)
+```
+
+Se observa potencial heterocedasticidad.
+
+```{r}
+hetero_ej$residuos = summary(modelo_naive_heterocedasticidad)$residuals
+hetero_ej$abs_residuos = abs(hetero_ej$residuos)
+
+attach(hetero_ej)
+modelo_auxiliar_glejser = lm(abs_residuos ~ intensidad_lab + rend_tech)
+summary(modelo_auxiliar_glejser)
+```
+
+### Prueba de Park
+
+```{r}
+hetero_ej$residuos2 = hetero_ej$residuos^2
+attach(hetero_ej)
+modelo_auxiliar_park = lm(log(residuos2) ~ log(intensidad_lab) + log(rend_tech))
+summary(modelo_auxiliar_park)
+```
+
+### Test de Spearman
+
+```{r}
+cor.test(abs(modelo_naive_heterocedasticidad$residuals), hetero_ej$intensidad_lab, method="spearman", alternative="greater")
+cor.test(abs(modelo_naive_heterocedasticidad$residuals), hetero_ej$rend_tech, method="spearman", alternative="greater")
+```
+
+## Solución: Mínimos Cuadrados Generalizados:
+
+```{r}
+library(nlme)
+attach(hetero_ej)
+modelo_mcg = gls(ingreso ~ intensidad_lab + rend_tech, weights = varPower(fixed = 2, form = ~ intensidad_lab))
+plot(modelo_mcg, which=1)
+```

@@ -266,3 +266,17 @@ Paso 5: obtener la suma de cuadrados explicada y definir:
 $$
 \Theta = \frac{1}{2} SCE_{xp}
 $$
+
+Si los $u_i$ están normalmente distribuidos, hay homocedasticidad y el tamaño $n$ de la muestra aumenta indefinidamente, entonces
+
+$$
+\Theta \overset{n \rightarrow \infty }{\sim} \chi^2_{m-1}
+$$
+
+::: callout-warning
+**Limitación**
+
+La prueba es sensible al supuesto de normalidad, por lo que su uso no se recomienda para muestras pequeñas.
+:::
+
+En R se hace la prueba con el comando `bptest`. Hay que llamar al paquete `lmtest`

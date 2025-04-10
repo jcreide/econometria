@@ -14,7 +14,7 @@
     "href": "clase-27-3.html",
     "title": "3  Clase 27-3",
     "section": "",
-    "text": "3.1 Importar datos\nlibrary(readr)\npoblacion &lt;- read_csv(\"archivos/datos_heterocedasticidad.csv\")\n\nRows: 9959 Columns: 2\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (2): Ingreso, Gasto_Educacion\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nhead(poblacion)\n\n# A tibble: 6 × 2\n  Ingreso Gasto_Educacion\n    &lt;dbl&gt;           &lt;dbl&gt;\n1  35882.           4702.\n2  80947.          14659.\n3  46808.           3996.\n4  89472.          17573.\n5  94642.          15800.\n6  14100.           3646.\nLos datos corresponden a una población simulada:\n\\[\n\\text{GastoEduc}_i = 2000 + 0.1 \\times \\text{Ingreso}_i + u_i\n\\]\nDonde:\n\\[\nu_i \\sim N(\\mu = 0, \\sigma = \\text{Ingreso} \\times 0.05)\n\\]",
+    "text": "3.1 Importar datos\nRows: 9959 Columns: 2\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (2): Ingreso, Gasto_Educacion\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n# A tibble: 6 × 2\n  Ingreso Gasto_Educacion\n    &lt;dbl&gt;           &lt;dbl&gt;\n1  35882.           4702.\n2  80947.          14659.\n3  46808.           3996.\n4  89472.          17573.\n5  94642.          15800.\n6  14100.           3646.\nLos datos corresponden a una población simulada:\n\\[\n\\text{GastoEduc}_i = 2000 + 0.1 \\times \\text{Ingreso}_i + u_i\n\\]\nDonde:\n\\[\nu_i \\sim N(\\mu = 0, \\sigma = \\text{Ingreso} \\times 0.05)\n\\]",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Clase 27-3</span>"
     ]
@@ -204,9 +204,79 @@
     "href": "clase 31-3.html#prueba-de-breusch-pagan-goldfrey",
     "title": "4  Clase 31-3: Heterocedasticidad",
     "section": "4.6 Prueba de Breusch-Pagan-Goldfrey",
-    "text": "4.6 Prueba de Breusch-Pagan-Goldfrey\nPaso 1: estimar el modelo de regresión lineal simple y obtener los residuos.\nPaso 2: obtener la varianza máximo-verosímil:\n\\[\n\\overset{\\sim}{\\sigma}^2 = \\frac{\\sum \\hat{u}^2_i}{n}\n\\]\n\n\n\n\n\n\nNota\n\n\n\nComparar con estimador de MCO:\n\\[\n\\sigma^2 = \\frac{\\sum \\hat{u}^2_i}{n-k}\n\\]\nLos grados de libertad lo vuelven un estimador insesgado, a diferencia de \\(\\overset{\\sim}{\\sigma}\\)\n\n\nPaso 3: construir las variables \\(p_i\\):\n\\[\np_i = \\frac{\\hat{u}^2_i}{\\overset{\\sim}{\\sigma}^2}\n\\]\nPaso 4: hacer la regresión:\n\\[\np_i = \\alpha_1 + \\alpha_2 Z_{2i} + \\dots + \\alpha_m Z_{mi} + v_i\n\\]\n\n\n\n\n\n\nNota\n\n\n\nLo más probable es que las \\(Z\\) sean las propias \\(X\\) del modelo.\n\n\nPaso 5: obtener la suma de cuadrados explicada y definir:\n\\[\n\\Theta = \\frac{1}{2} SCE_{xp}\n\\]",
+    "text": "4.6 Prueba de Breusch-Pagan-Goldfrey\nPaso 1: estimar el modelo de regresión lineal simple y obtener los residuos.\nPaso 2: obtener la varianza máximo-verosímil:\n\\[\n\\overset{\\sim}{\\sigma}^2 = \\frac{\\sum \\hat{u}^2_i}{n}\n\\]\n\n\n\n\n\n\nNota\n\n\n\nComparar con estimador de MCO:\n\\[\n\\sigma^2 = \\frac{\\sum \\hat{u}^2_i}{n-k}\n\\]\nLos grados de libertad lo vuelven un estimador insesgado, a diferencia de \\(\\overset{\\sim}{\\sigma}\\)\n\n\nPaso 3: construir las variables \\(p_i\\):\n\\[\np_i = \\frac{\\hat{u}^2_i}{\\overset{\\sim}{\\sigma}^2}\n\\]\nPaso 4: hacer la regresión:\n\\[\np_i = \\alpha_1 + \\alpha_2 Z_{2i} + \\dots + \\alpha_m Z_{mi} + v_i\n\\]\n\n\n\n\n\n\nNota\n\n\n\nLo más probable es que las \\(Z\\) sean las propias \\(X\\) del modelo.\n\n\nPaso 5: obtener la suma de cuadrados explicada y definir:\n\\[\n\\Theta = \\frac{1}{2} SCE_{xp}\n\\]\nSi los \\(u_i\\) están normalmente distribuidos, hay homocedasticidad y el tamaño \\(n\\) de la muestra aumenta indefinidamente, entonces\n\\[\n\\Theta \\overset{n \\rightarrow \\infty }{\\sim} \\chi^2_{m-1}\n\\]\n\n\n\n\n\n\nAdvertencia\n\n\n\nLimitación\nLa prueba es sensible al supuesto de normalidad, por lo que su uso no se recomienda para muestras pequeñas.\n\n\nEn R se hace la prueba con el comando bptest. Hay que llamar al paquete lmtest",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Clase 31-3: Heterocedasticidad</span>"
+    ]
+  },
+  {
+    "objectID": "clase 3-4.html",
+    "href": "clase 3-4.html",
+    "title": "5  Clase 4-4: Continuación tests heterocedasticidad",
+    "section": "",
+    "text": "5.1 Prueba de White\n\\[\nn: R^2 \\underset{asin}{\\sim} \\chi^2_{gl} =s\n\\]\nH0: homocedasticidad\nH1: heterocedasticidad lineal\nH0: homocedasticidad\nH1: heterocedasticidad lineal",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Clase 4-4: Continuación tests heterocedasticidad</span>"
+    ]
+  },
+  {
+    "objectID": "clase 3-4.html#prueba-de-white",
+    "href": "clase 3-4.html#prueba-de-white",
+    "title": "5  Clase 4-4: Continuación tests heterocedasticidad",
+    "section": "",
+    "text": "library(car)\nncvTest(modelo_naive, ~ Ingreso+I(Ingreso^2))\n\n\nncvTest(modelo_naive, ~ x1 + x2 + I(x1^2) + I(x2^2) + I(x1*x2))",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Clase 4-4: Continuación tests heterocedasticidad</span>"
+    ]
+  },
+  {
+    "objectID": "clase 7-4.html",
+    "href": "clase 7-4.html",
+    "title": "6  Clase 7-4: Soluciones a la heterocedasticidad",
+    "section": "",
+    "text": "6.1 Primera solución: Mínimos cuadrados generalizados\nTenemos el siguiente modelo:\n\\[\nG_e = \\beta_1 + \\beta_2 I + u\n\\]\ndonde\n\\[\n\\sigma_i^2 = \\sigma \\times X_i^2\n\\]\nlibrary(nlme)\nattach(datos)\nmodelo_gls1 = gls(Gasto_Educacion ~ Ingreso, weights = varPower(fixed = 2, form = ~ Ingreso))\nplot(modelo_gls1, which=1)\nSeguimos teniendo heterocedasticidad, por lo que la primera alternativa no funcionó.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Clase 7-4: Soluciones a la heterocedasticidad</span>"
+    ]
+  },
+  {
+    "objectID": "clase 7-4.html#primera-solución-mínimos-cuadrados-generalizados",
+    "href": "clase 7-4.html#primera-solución-mínimos-cuadrados-generalizados",
+    "title": "6  Clase 7-4: Soluciones a la heterocedasticidad",
+    "section": "",
+    "text": "Nota\n\n\n\nvarpower() es una función que modela la heterocedasticidad usando usna estructura de potencia \\(\\sigma^2_i = \\sigma |X|^p\\). En este caso \\(p=2\\).",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Clase 7-4: Soluciones a la heterocedasticidad</span>"
+    ]
+  },
+  {
+    "objectID": "clase 7-4.html#segunda-opción",
+    "href": "clase 7-4.html#segunda-opción",
+    "title": "6  Clase 7-4: Soluciones a la heterocedasticidad",
+    "section": "6.2 Segunda opción:",
+    "text": "6.2 Segunda opción:\n\\[\n\\sigma_i^2 = \\sigma \\times X_i\n\\]\nA diferencia del caso anterior, usamos un \\(p=1\\)\n\nmodelo_gls2 = gls(Gasto_Educacion ~ Ingreso, weights = varPower(fixed = 1, form = ~ Ingreso))\nplot(modelo_gls2, which=1)\n\n\n\n\n\n\n\nmodelo_gls2\n\nGeneralized least squares fit by REML\n  Model: Gasto_Educacion ~ Ingreso \n  Data: NULL \n  Log-restricted-likelihood: -91357.66\n\nCoefficients:\n (Intercept)      Ingreso \n2.030275e+03 9.992372e-02 \n\nVariance function:\n Structure: Power of variance covariate\n Formula: ~Ingreso \n Parameter estimates:\npower \n    1 \nDegrees of freedom: 9959 total; 9957 residual\nResidual standard error: 0.04929594 \n\n\n\nsummary(modelo_gls2)\n\nGeneralized least squares fit by REML\n  Model: Gasto_Educacion ~ Ingreso \n  Data: NULL \n       AIC      BIC    logLik\n  182721.3 182742.9 -91357.66\n\nVariance function:\n Structure: Power of variance covariate\n Formula: ~Ingreso \n Parameter estimates:\npower \n    1 \n\nCoefficients:\n                Value Std.Error   t-value p-value\n(Intercept) 2030.2746 26.480284  76.67118       0\nIngreso        0.0999  0.000841 118.87519       0\n\n Correlation: \n        (Intr)\nIngreso -0.809\n\nStandardized residuals:\n       Min         Q1        Med         Q3        Max \n-3.1052371 -0.6791022 -0.0136930  0.6976142  3.8768244 \n\nResidual standard error: 0.04929594 \nDegrees of freedom: 9959 total; 9957 residual\n\n\nComparado con el modelo naive:\n\nmodelo_naive = lm(Gasto_Educacion ~ Ingreso)\nsummary(modelo_naive)\n\n\nCall:\nlm(formula = Gasto_Educacion ~ Ingreso)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-10932.9  -1521.5    -19.8   1511.6  14764.7 \n\nCoefficients:\n             Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 2.005e+03  6.953e+01   28.84   &lt;2e-16 ***\nIngreso     1.005e-01  1.149e-03   87.45   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 2960 on 9957 degrees of freedom\nMultiple R-squared:  0.4344,    Adjusted R-squared:  0.4343 \nF-statistic:  7647 on 1 and 9957 DF,  p-value: &lt; 2.2e-16",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Clase 7-4: Soluciones a la heterocedasticidad</span>"
+    ]
+  },
+  {
+    "objectID": "clase 7-4.html#tercera-solución-usar-errores-estándar-robustos",
+    "href": "clase 7-4.html#tercera-solución-usar-errores-estándar-robustos",
+    "title": "6  Clase 7-4: Soluciones a la heterocedasticidad",
+    "section": "6.3 Tercera solución: Usar Errores Estándar Robustos",
+    "text": "6.3 Tercera solución: Usar Errores Estándar Robustos\nPrimero hay que llamar la librería sandwich, que proporciona matrices de covarianza robustas en modelos estadísticos:\n\nlibrary(sandwich)\nlibrary(lmtest)\n\nLoading required package: zoo\n\n\n\nAttaching package: 'zoo'\n\n\nThe following objects are masked from 'package:base':\n\n    as.Date, as.Date.numeric\n\nsqrt(diag(vcovHC(modelo_naive, type= \"HC0\"))) # errores estándar robustos para el intercepto y la pendiente\n\n (Intercept)      Ingreso \n50.754330686  0.001232128 \n\ncoeftest(modelo_naive, vcov= vcovHC(modelo_naive, type= \"HC0\")) # HC0 versión original de white (prueba para los coeficientes)\n\n\nt test of coefficients:\n\n              Estimate Std. Error t value  Pr(&gt;|t|)    \n(Intercept) 2.0051e+03 5.0754e+01  39.505 &lt; 2.2e-16 ***\nIngreso     1.0050e-01 1.2321e-03  81.568 &lt; 2.2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n\n\n\n\n\nTip\n\n\n\nEste procedimiento amplia los desvios de los residuos respecto a mínimos cuadrados ordinarios (modelo naive) porque pondera los errores estándar usando la matriz de varianza covarianza.\n\n\n\n6.3.1 Ajuste para muestras finitas\n\nsqrt(diag(vcovHC(modelo_naive, type= \"HC1\")))\n\n (Intercept)      Ingreso \n50.759427782  0.001232252 \n\ncoeftest(modelo_naive, vcov= vcovHC(modelo_naive, type= \"HC1\")) \n\n\nt test of coefficients:\n\n              Estimate Std. Error t value  Pr(&gt;|t|)    \n(Intercept) 2.0051e+03 5.0759e+01  39.501 &lt; 2.2e-16 ***\nIngreso     1.0050e-01 1.2323e-03  81.559 &lt; 2.2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nMultiplica la matriz de varianza-covarianza por un factor de corrección \\(n(n-k)\\), donde:\n\n\\(n\\): número de observaciones.\n\\(k\\): número de parámetros en el modelo\n\nEs más utilizada que la anterior (\\(HC1\\)), especialmente en muestras pequeñas (muestras finitas).\nOtros ajustes populares:\n\n\\(HC2\\): usa un ajuste basado en los valores de influencia (leverage) de cada observación.\n\\(HC3\\) similar a \\(HC2\\) pero usa un ajuste más conservador.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Clase 7-4: Soluciones a la heterocedasticidad</span>"
+    ]
+  },
+  {
+    "objectID": "clase 7-4.html#solución-mínimos-cuadrados-generalizados",
+    "href": "clase 7-4.html#solución-mínimos-cuadrados-generalizados",
+    "title": "6  Clase 7-4: Soluciones a la heterocedasticidad",
+    "section": "7.1 Solución: Mínimos Cuadrados Generalizados:",
+    "text": "7.1 Solución: Mínimos Cuadrados Generalizados:\n\nlibrary(nlme)\nattach(hetero_ej)\n\nThe following objects are masked from hetero_ej (pos = 3):\n\n    abs_residuos, ingreso, intensidad_lab, rend_tech, residuos,\n    residuos2\n\n\nThe following objects are masked from hetero_ej (pos = 4):\n\n    abs_residuos, ingreso, intensidad_lab, rend_tech, residuos\n\n\nThe following objects are masked from hetero_ej (pos = 13):\n\n    ingreso, intensidad_lab, rend_tech\n\nmodelo_mcg = gls(ingreso ~ intensidad_lab + rend_tech, weights = varPower(fixed = 2, form = ~ intensidad_lab))\nplot(modelo_mcg, which=1)",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Clase 7-4: Soluciones a la heterocedasticidad</span>"
     ]
   }
 ]

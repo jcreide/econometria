@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Clase 20-3 – Apuntes Econometría</title>
+<title>5&nbsp; Clase 4-4: Continuación tests heterocedasticidad – Apuntes Econometría</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./clase-27-3.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./clase 7-4.html" rel="next">
+<link href="./clase 31-3.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -105,6 +105,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -117,7 +146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./clase-20-3.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Clase 20-3</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./clase 3-4.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Clase 4-4: Continuación tests heterocedasticidad</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -153,7 +182,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./clase-20-3.html" class="sidebar-item-text sidebar-link active">
+  <a href="./clase-20-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Clase 20-3</span></span></a>
   </div>
 </li>
@@ -171,7 +200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./clase 3-4.html" class="sidebar-item-text sidebar-link">
+  <a href="./clase 3-4.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Clase 4-4: Continuación tests heterocedasticidad</span></span></a>
   </div>
 </li>
@@ -191,14 +220,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#importar-datos-de-tabla.csv" id="toc-importar-datos-de-tabla.csv" class="nav-link active" data-scroll-target="#importar-datos-de-tabla.csv"><span class="header-section-number">2.1</span> Importar datos de <code>tabla.csv</code></a></li>
-  <li><a href="#modelo-lineal" id="toc-modelo-lineal" class="nav-link" data-scroll-target="#modelo-lineal"><span class="header-section-number">2.2</span> Modelo lineal</a></li>
-  <li><a href="#análisis-de-correlación" id="toc-análisis-de-correlación" class="nav-link" data-scroll-target="#análisis-de-correlación"><span class="header-section-number">2.3</span> Análisis de correlación</a></li>
-  <li><a href="#cálculo-autovalores" id="toc-cálculo-autovalores" class="nav-link" data-scroll-target="#cálculo-autovalores"><span class="header-section-number">3</span> Cálculo autovalores</a>
-  <ul class="collapse">
-  <li><a href="#cálculo-de-valor-k" id="toc-cálculo-de-valor-k" class="nav-link" data-scroll-target="#cálculo-de-valor-k"><span class="header-section-number">3.1</span> Cálculo de valor k</a></li>
-  </ul></li>
-  <li><a href="#modelo-auxiliar" id="toc-modelo-auxiliar" class="nav-link" data-scroll-target="#modelo-auxiliar"><span class="header-section-number">4</span> Modelo auxiliar</a></li>
+  <li><a href="#prueba-de-white" id="toc-prueba-de-white" class="nav-link active" data-scroll-target="#prueba-de-white"><span class="header-section-number">5.1</span> Prueba de White</a></li>
+  <li><a href="#prueba-de-koenker-basset" id="toc-prueba-de-koenker-basset" class="nav-link" data-scroll-target="#prueba-de-koenker-basset"><span class="header-section-number">6</span> Prueba de Koenker-Basset</a></li>
+  <li><a href="#soluciones-a-la-heterocedasticidad" id="toc-soluciones-a-la-heterocedasticidad" class="nav-link" data-scroll-target="#soluciones-a-la-heterocedasticidad"><span class="header-section-number">7</span> Soluciones a la heterocedasticidad</a></li>
   </ul>
 </nav>
     </div>
@@ -207,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Clase 20-3</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Clase 4-4: Continuación tests heterocedasticidad</span></h1>
 </div>
 
 
@@ -224,166 +248,138 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="importar-datos-de-tabla.csv" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="importar-datos-de-tabla.csv"><span class="header-section-number">2.1</span> Importar datos de <code>tabla.csv</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"archivos/tabla.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>, </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">escape_double =</span> <span class="cn">FALSE</span>, <span class="at">trim_ws =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 16 Columns: 8
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ";"
-dbl (8): obs, Y, DPBI, PBI, NoDes, Enlistadas, Mas14, TIME
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(datos)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>modelo_naive <span class="ot">&lt;-</span> <span class="fu">lm</span>(Gasto_Educacion <span class="sc">~</span> Ingreso)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo_naive)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Gasto_Educacion ~ Ingreso)
 
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-10932.9  -1521.5    -19.8   1511.6  14764.7 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 2.005e+03  6.953e+01   28.84   &lt;2e-16 ***
+Ingreso     1.005e-01  1.149e-03   87.45   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2960 on 9957 degrees of freedom
+Multiple R-squared:  0.4344,    Adjusted R-squared:  0.4343 
+F-statistic:  7647 on 1 and 9957 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
-    obs     Y  DPBI    PBI NoDes Enlistadas  Mas14  TIME
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-1  1947 60323   830 234289  2356       1590 107608     1
-2  1948 61122   885 259426  2325       1456 108632     2
-3  1949 60171   882 258054  3682       1616 109773     3
-4  1950 61187   895 284599  3351       1650 110929     4
-5  1951 63221   962 328975  2099       3099 112075     5
-6  1952 63639   981 346999  1932       3594 113270     6</code></pre>
 </div>
-</div>
-</section>
-<section id="modelo-lineal" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="modelo-lineal"><span class="header-section-number">2.2</span> Modelo lineal</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(datos)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">=</span> <span class="fu">lm</span>(Y <span class="sc">~</span> DPBI <span class="sc">+</span> PBI <span class="sc">+</span> NoDes <span class="sc">+</span> Enlistadas <span class="sc">+</span> Mas14 <span class="sc">+</span> TIME)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">cbind</span>(datos, <span class="fu">abs</span>(modelo_naive<span class="sc">$</span>residuals))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(datos<span class="sc">$</span>Ingreso)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>orden <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      obs             Y              DPBI             PBI        
- Min.   :1947   Min.   :60171   Min.   : 830.0   Min.   :234289  
- 1st Qu.:1951   1st Qu.:62712   1st Qu.: 945.2   1st Qu.:317881  
- Median :1954   Median :65504   Median :1006.0   Median :381427  
- Mean   :1954   Mean   :65317   Mean   :1016.8   Mean   :387698  
- 3rd Qu.:1958   3rd Qu.:68290   3rd Qu.:1112.5   3rd Qu.:454086  
- Max.   :1962   Max.   :70551   Max.   :1169.0   Max.   :554894  
-     NoDes        Enlistadas       Mas14             TIME      
- Min.   :1870   Min.   :1456   Min.   :107608   Min.   : 1.00  
- 1st Qu.:2348   1st Qu.:2298   1st Qu.:111788   1st Qu.: 4.75  
- Median :3144   Median :2718   Median :116804   Median : 8.50  
- Mean   :3193   Mean   :2607   Mean   :117424   Mean   : 8.50  
- 3rd Qu.:3842   3rd Qu.:3061   3rd Qu.:122304   3rd Qu.:12.25  
- Max.   :4806   Max.   :3594   Max.   :130081   Max.   :16.00  </code></pre>
+<pre><code>   Ingreso Gasto_Educacion abs(modelo_naive$residuals) orden
+1 35881.98         4701.60                    909.6592     1
+2 80947.46        14658.54                   4518.1158     2
+3 46807.92         3996.48                   2712.8566     3
+4 89471.57        17572.61                   6575.4968     4
+5 94642.06        15799.72                   4282.9629     5
+6 14100.08         3646.28                    224.1425     6</code></pre>
 </div>
 </div>
-</section>
-<section id="análisis-de-correlación" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="análisis-de-correlación"><span class="header-section-number">2.3</span> Análisis de correlación</h2>
-<p>Primero eliminamos las variables <code>obs</code> e <code>Y</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: zoo</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
+Attaching package: 'zoo'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>The following objects are masked from 'package:base':
 
-    intersect, setdiff, setequal, union</code></pre>
+    as.Date, as.Date.numeric</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>datos_limpios <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(<span class="st">"obs"</span>, <span class="st">"Y"</span>))</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>datos_limpios</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">gqtest</span>(modelo_naive, <span class="at">order.by=</span> Gasto_Educacion <span class="sc">~</span> Ingreso, <span class="at">data =</span> datos, <span class="at">fraction =</span> <span class="dv">16</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 16 × 6
-    DPBI    PBI NoDes Enlistadas  Mas14  TIME
-   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
- 1   830 234289  2356       1590 107608     1
- 2   885 259426  2325       1456 108632     2
- 3   882 258054  3682       1616 109773     3
- 4   895 284599  3351       1650 110929     4
- 5   962 328975  2099       3099 112075     5
- 6   981 346999  1932       3594 113270     6
- 7   990 365385  1870       3547 115094     7
- 8  1000 363112  3578       3350 116219     8
- 9  1012 397469  2904       3048 117388     9
-10  1046 419180  2822       2857 118734    10
-11  1084 442769  2936       2798 120445    11
-12  1108 444546  4681       2637 121950    12
-13  1126 482704  3813       2552 123366    13
-14  1142 502601  3931       2514 125368    14
-15  1157 518173  4806       2572 127852    15
-16  1169 554894  4007       2827 130081    16</code></pre>
+<pre><code>
+    Goldfeld-Quandt test
+
+data:  modelo_naive
+GQ = 4.966, df1 = 4970, df2 = 4969, p-value &lt; 2.2e-16
+alternative hypothesis: variance increases from segment 1 to 2</code></pre>
 </div>
-</div>
-<p>Matriz de correlación:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>matriz_correlacion <span class="ot">=</span> <span class="fu">cor</span>(datos_limpios)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#redondeamos la matriz a dos dígitos para mejor legibilidad:</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>matriz_correlacion_legible <span class="ot">=</span> <span class="fu">round</span>(matriz_correlacion, <span class="at">digits=</span><span class="dv">2</span>) </span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>matriz_correlacion_legible</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>statistic</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           DPBI  PBI NoDes Enlistadas Mas14 TIME
-DPBI       1.00 0.99  0.62       0.46  0.98 0.99
-PBI        0.99 1.00  0.60       0.45  0.99 1.00
-NoDes      0.62 0.60  1.00      -0.18  0.69 0.67
-Enlistadas 0.46 0.45 -0.18       1.00  0.36 0.42
-Mas14      0.98 0.99  0.69       0.36  1.00 0.99
-TIME       0.99 1.00  0.67       0.42  0.99 1.00</code></pre>
+<pre><code>      GQ 
+4.966037 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>parameter</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> df1  df2 
+4970 4969 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>p.value</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
 </div>
 </div>
-<p>Corrplot:</p>
+<section id="prueba-de-white" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="prueba-de-white"><span class="header-section-number">5.1</span> Prueba de White</h2>
+<p><span class="math display">\[
+n: R^2 \underset{asin}{\sim} \chi^2_{gl} =s
+\]</span></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span>(modelo_naive, <span class="sc">~</span> Ingreso<span class="sc">+</span><span class="fu">I</span>(Ingreso<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>H0: homocedasticidad</p>
+<p>H1: heterocedasticidad lineal</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span>(modelo_naive, <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x2<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">*</span>x2))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>H0: homocedasticidad</p>
+<p>H1: heterocedasticidad lineal</p>
+</section>
+<section id="prueba-de-koenker-basset" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Prueba de Koenker-Basset</h1>
+<p><span class="math display">\[
+\hat{u}_i^2 = \alpha_1 + \alpha_2 (\hat{Y}_i)^2 + v_i
+\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>corrplot 0.95 loaded</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(matriz_correlacion, <span class="at">method=</span><span class="st">"ellipse"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="clase-20-3_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(<span class="fu">residuals</span>(modelo_naive)<span class="sc">^</span><span class="dv">2</span> <span class="sc">~</span> <span class="fu">fitted</span>(modelo_naive)<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = residuals(modelo_naive)^2 ~ fitted(modelo_naive)^2)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-20469105  -7616034  -1787088   2413788 198374613 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)          -1.059e+07  4.491e+05  -23.59   &lt;2e-16 ***
+fitted(modelo_naive)  2.579e+03  5.657e+01   45.60   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 14640000 on 9957 degrees of freedom
+Multiple R-squared:  0.1727,    Adjusted R-squared:  0.1727 
+F-statistic:  2079 on 1 and 9957 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </section>
-<section id="cálculo-autovalores" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Cálculo autovalores</h1>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">eigen</span>(matriz_correlacion)<span class="sc">$</span>values, <span class="at">digits=</span><span class="dv">3</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.603 1.175 0.203 0.015 0.003 0.000</code></pre>
-</div>
-</div>
-<section id="cálculo-de-valor-k" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="cálculo-de-valor-k"><span class="header-section-number">3.1</span> Cálculo de valor k</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">max</span>(<span class="fu">eigen</span>(matriz_correlacion)<span class="sc">$</span>values)<span class="sc">/</span><span class="fu">min</span>(<span class="fu">eigen</span>(matriz_correlacion)<span class="sc">$</span>values)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>k</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 12220.01</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="modelo-auxiliar" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Modelo auxiliar</h1>
-<p>Modelo para evaluar multicolinealidad:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>modelo_DPBI <span class="ot">=</span> <span class="fu">lm</span>(DPBI <span class="sc">~</span> Y <span class="sc">+</span> PBI <span class="sc">+</span> NoDes <span class="sc">+</span> Enlistadas <span class="sc">+</span> Mas14 <span class="sc">+</span> TIME, <span class="at">data=</span>datos)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">summary</span>(modelo_DPBI)<span class="sc">$</span>r.squared</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>FIV <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>r)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>FIV</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 136.0062</code></pre>
-</div>
-</div>
+<section id="soluciones-a-la-heterocedasticidad" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Soluciones a la heterocedasticidad</h1>
+<p>Si no se conoce <span class="math inline">\(\sigma^2\)</span></p>
+<ol type="1">
+<li>Se modeliza el comportamiento de la varianza</li>
+<li>Usar <strong>errores estándar robustos</strong></li>
+</ol>
+<p>Errores estándar robustos:</p>
+<p><span class="math display">\[
+\text{Var}(\hat{\beta})_{\text{robusta}} = (X^TX)^{-1} (X^T S X) (X^TX)^{-1}
+\]</span></p>
 
 
 </section>
@@ -952,13 +948,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Página principal">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Página principal</span></span>
+      <a href="./clase 31-3.html" class="pagination-link" aria-label="Clase 31-3: Heterocedasticidad">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Clase 31-3: Heterocedasticidad</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./clase-27-3.html" class="pagination-link" aria-label="Clase 27-3">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Clase 27-3</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./clase 7-4.html" class="pagination-link" aria-label="Clase 7-4: Soluciones a la heterocedasticidad">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Clase 7-4: Soluciones a la heterocedasticidad</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -3,6 +3,7 @@
 ## Importar datos
 
 ```{r}
+#| echo: false
 library(readr)
 poblacion <- read_csv("archivos/datos_heterocedasticidad.csv")
 head(poblacion)

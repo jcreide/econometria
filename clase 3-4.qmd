@@ -1,0 +1,75 @@
+# Clase 4-4: Continuación tests heterocedasticidad
+
+```{r message=FALSE}
+#| echo: false
+library(readr)
+datos <- read_csv("archivos/datos_heterocedasticidad.csv")
+```
+
+```{r message=FALSE}
+attach(datos)
+modelo_naive <- lm(Gasto_Educacion ~ Ingreso)
+summary(modelo_naive)
+```
+
+```{r}
+datos <- cbind(datos, abs(modelo_naive$residuals))
+n = length(datos$Ingreso)
+datos$orden = 1:n
+head(datos)
+```
+
+```{r}
+library(lmtest)
+a = gqtest(modelo_naive, order.by= Gasto_Educacion ~ Ingreso, data = datos, fraction = 16)
+a
+a$statistic
+a$parameter
+a$p.value
+```
+
+## Prueba de White
+
+$$
+n: R^2 \underset{asin}{\sim} \chi^2_{gl} =s
+$$
+
+``` r
+library(car)
+ncvTest(modelo_naive, ~ Ingreso+I(Ingreso^2))
+```
+
+H0: homocedasticidad
+
+H1: heterocedasticidad lineal
+
+``` r
+ncvTest(modelo_naive, ~ x1 + x2 + I(x1^2) + I(x2^2) + I(x1*x2))
+```
+
+H0: homocedasticidad
+
+H1: heterocedasticidad lineal
+
+# Prueba de Koenker-Basset
+
+$$
+\hat{u}_i^2 = \alpha_1 + \alpha_2 (\hat{Y}_i)^2 + v_i
+$$
+
+```{r}
+summary(lm(residuals(modelo_naive)^2 ~ fitted(modelo_naive)^2))
+```
+
+# Soluciones a la heterocedasticidad
+
+Si no se conoce $\sigma^2$
+
+1.  Se modeliza el comportamiento de la varianza
+2.  Usar **errores estándar robustos**
+
+Errores estándar robustos:
+
+$$
+\text{Var}(\hat{\beta})_{\text{robusta}} = (X^TX)^{-1} (X^T S X) (X^TX)^{-1}
+$$
